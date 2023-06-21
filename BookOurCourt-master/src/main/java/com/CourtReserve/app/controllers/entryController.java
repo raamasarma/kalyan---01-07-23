@@ -17,7 +17,9 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import java.io.IOException;
 import java.net.InetAddress;
 import java.net.UnknownHostException;
 import java.util.ArrayList;
@@ -54,7 +56,8 @@ public class entryController {
         return "entryTemplates/login";
     }
     @PostMapping("/public/login")
-    public String loginUser(HttpSession session, @RequestParam Map body,HttpSession request) throws UnknownHostException {
+    public String loginUser(HttpSession session,HttpServletResponse response, @RequestParam Map body,HttpSession request) throws IOException {
+        List<String> messages = new ArrayList<>();
         System.out.println(body);
         User user = new User();
         UserLog userLog = new UserLog();
@@ -76,11 +79,13 @@ public class entryController {
                 userLogRepository.save(userLog);
                 result = "redirect:/";
             } else {
+                messages.add("pls Try Again!");
                 result = "entryTemplates/login";
                 System.out.println("user invalid credentials");
             }
         }else{
-            session.setAttribute("error","user already loggedin");
+            messages.add("User Already login! pls Try After SomeTime");
+            session.setAttribute("messages","messages");
             System.out.println("user already loggedin");
             result= "entryTemplates/login";
         }
@@ -89,11 +94,11 @@ public class entryController {
     @RequestMapping("/public/logout")
     public String loginUser(HttpSession session){
         UserLog userLog=new UserLog();
-        System.out.println(userLog.getUserId());
+        System.out.println(session.getId());
        // User user=new User();
-        UserLog usercheck2= userLogRepository.findByUserIdAndStatus(userLog.getUserId(),"active");
-        System.out.println("user Checking:"+usercheck2);
-//        userLogRepository.delete(usercheck2);
+        UserLog usercheck= userLogRepository.findBySessionIdAndStatus(session.getId(),"active");
+        System.out.println("user Checking:"+usercheck);
+        userLogRepository.delete(usercheck);
         session.setAttribute("loggedIn", "false");
         session.setAttribute("loggedMobile", null);
         session.setAttribute("userType", null);

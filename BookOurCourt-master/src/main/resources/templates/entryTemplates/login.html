@@ -5,11 +5,14 @@
 
 <body>
 <!--main content start-->
+
+
+
 <div layout:fragment="content"><div class="container">
+    <div th:replace="fragments/message :: message_html"></div>
+
+
     <h2>User Login</h2>
-    <h4>
-        <small th:text="${error}" >Subtitle</small>
-    </h4>
     <form action="#" method="post">
         <div class="form-group">
             <label for="mobileNo">Mobile Number:</label>
@@ -23,6 +26,7 @@
     </form>
 </div>
 </div>
+
 <!--main content end-->
 </body>
 

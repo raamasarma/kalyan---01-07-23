@@ -10,7 +10,7 @@ public interface UserLogRepository extends CrudRepository<UserLog,Integer> {
 
     UserLog findByMobileNoAndStatus(String mobileNo, String active);
 
-    UserLog findByUserIdAndStatus(Long userId,String active);
+    UserLog findBySessionIdAndStatus(String sessionId,String active);
 
 
 }
