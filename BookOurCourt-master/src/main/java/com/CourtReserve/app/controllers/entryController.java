@@ -56,7 +56,7 @@ public class entryController {
         return "entryTemplates/login";
     }
     @PostMapping("/public/login")
-    public String loginUser(HttpSession session,HttpServletResponse response, @RequestParam Map body,HttpSession request) throws IOException {
+    public String loginUser(HttpSession session,HttpServletResponse response, @RequestParam Map body,HttpSession request, Model model) throws IOException {
         List<String> messages = new ArrayList<>();
         System.out.println(body);
         User user = new User();
@@ -79,16 +79,16 @@ public class entryController {
                 userLogRepository.save(userLog);
                 result = "redirect:/";
             } else {
-                messages.add("pls Try Again!");
+                messages.add("Pls Enter Valid Credentials");
                 result = "entryTemplates/login";
                 System.out.println("user invalid credentials");
             }
         }else{
-            messages.add("User Already login! pls Try After SomeTime");
-            session.setAttribute("messages","messages");
+            messages.add("User Already LoggedIn!");
             System.out.println("user already loggedin");
             result= "entryTemplates/login";
         }
+        model.addAttribute("messages", messages);
         return result;
     }
     @RequestMapping("/public/logout")
