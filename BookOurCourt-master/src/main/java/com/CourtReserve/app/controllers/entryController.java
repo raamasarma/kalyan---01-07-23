@@ -91,6 +91,26 @@ public class entryController {
         model.addAttribute("messages", messages);
         return result;
     }
+    @RequestMapping("/password")
+    public String changePassword(){
+        System.out.println("password");
+        return "entryTemplates/password";
+    }
+    @PostMapping("/password")
+    public String changePassword( HttpServletRequest request, Model model,@RequestParam String mobileNo,  @RequestParam String oldPassword, @RequestParam String newPassword) {
+        System.out.println(mobileNo);
+        System.out.println(oldPassword);
+        System.out.println(newPassword);
+//        System.out.println(con_password);
+        User user = userRepository.findByMobileNoAndPassword(mobileNo, oldPassword);
+
+        if(user!=null)
+        {
+            user.setPassword(newPassword);
+            userRepository.save(user);
+        }
+        return "entryTemplates/login";
+    }
     @RequestMapping("/public/logout")
     public String loginUser(HttpSession session){
         UserLog userLog=new UserLog();
