@@ -91,12 +91,12 @@ public class entryController {
         model.addAttribute("messages", messages);
         return result;
     }
-    @RequestMapping("/password")
+    @RequestMapping("/public/password")
     public String changePassword(){
         System.out.println("password");
         return "entryTemplates/password";
     }
-    @PostMapping("/password")
+    @PostMapping("/public/password")
     public String changePassword( HttpServletRequest request, Model model,@RequestParam String mobileNo,  @RequestParam String oldPassword, @RequestParam String newPassword) {
         System.out.println(mobileNo);
         System.out.println(oldPassword);
