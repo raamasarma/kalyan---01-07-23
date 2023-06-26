@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" xmlns:th="http://www.w3.org/1999/xhtml"
+      xmlns="http://www.w3.org/1999/html">
+<head>
+    <meta charset="utf-8">
+    <script th:src="@{js/bookslot.js}"></script>
+    <script th:src="@{js/master.js}"></script>
+    <title></title>
+    <style>
+body {
+    background-color: lightblue;
+}
+
+.form-box,input {
+    width: 30%;
+    margin: auto;
+    padding-top:10px;
+}
+
+.form-box h4 {
+    text-align: center;
+    font-weight: bold;
+    text-transform: uppercase;
+    color: tomato;
+}
+
+.form-box h1 span {
+    font-weight: lighter;
+    width:10px;
+}
+button {
+  font-size: 14px;
+  font-weight: 600;
+  color: white;
+  padding: 6px 25px 0px 20px;
+  margin: 10px 8px 20px 0px;
+  display: inline-block;
+  float: right;
+  text-decoration: none;
+  width: 80px; height: 30px;
+  -webkit-border-radius: 5px;
+  -moz-border-radius: 5px;
+  border-radius: 5px;
+  background-color: #3a57af;
+}
+.box {
+  display: flex;
+  flex-wrap: wrap;
+  row-gap: 10px;
+  row-gap: 2em;
+}
+
+.box > * {
+  flex: 1;
+}
+    </style>
+</head>
+<body>
+<link href="//netdna.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+<script src="//netdna.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
+<script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
+<!------ Include the above in your HEAD tag ---------->
+
+<div class="container">
+    <div class="row">
+        <div class="form-box">
+            <h1>Form <span>User Register</span></h1>
+            <p><font color="#008000 ">
+                <b>Please fill in this form to create an account !!!</b> </font></p>
+            <form action="#" method="post">
+                <!-- name field -->
+                <div class="form-group">
+                    <div id="userNameError" class="alert" role="alert"></div>
+                    <label for="form-name-field" class="sr-only">Name</label>
+                    <div class="input-group">
+                        <div class="input-group-addon"><span class="glyphicon glyphicon-user"></span></div>
+                        <input type="text" class="form-control" id="form-name-field" name="userName" value="" placeholder="Name">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div id="mobileNoError" class="alert" role="alert"></div>
+                    <label for="form-phone-field" class="sr-only">Phone</label>
+                    <div class="input-group">
+                        <div class="input-group-addon"><span class="glyphicon glyphicon-phone"></span></div>
+                        <input type="text" class="form-control" id="form-phone-field"name="mobileNo" value="" placeholder="Phone" maxlength="10" pattern="\d{10}">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div id="passwordError" class="alert" role="alert"></div>
+                    <label for="form-password-field" class="sr-only">Password</label>
+                    <div class="input-group">
+                        <div class="input-group-addon"><span class="glyphicon glyphicon-lock"></span></div>
+                        <input type="password" class="form-control" id="form-password-field"name="password" value="" placeholder="Password" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}">
+                    </div>
+                </div>
+                <!-- email field -->
+                <div class="form-group">
+                    <div id="emailError" class="alert" role="alert"></div>
+                    <label for="form-email-field" class="sr-only">Email</label>
+                    <div class="input-group">
+                        <div class="input-group-addon"><span class="glyphicon glyphicon-envelope"></span></div>
+                        <input type="email" class="form-control" id="form-email-field" name="email" value="" placeholder="Email">
+                    </div>
+                </div>
+                <!-- phone field -->
+
+                <div class="form-group">
+                    <div id="locationError" class="alert" role="alert"></div>
+                    <label for="form-location-field" class="sr-only">Lacation</label>
+                    <div class="input-group">
+                        <div class="input-group-addon"><span class="glyphicon glyphicon-map-marker"></span></div>
+                        <input type="text" class="form-control" id="form-location-field"  name="location" value="" placeholder="Location">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div id="countryError" class="alert" role="alert"></div>
+                    <label for="country" class="sr-only">Country</label>
+                    <div class="input-group">
+                        <div class="input-group-addon"><span class="glyphicon glyphicon-globe"></span></div>
+                        <select class="form-control"  name="country" id="country">
+                            <option value="">Select Country</option>
+                            <option value="Oman">Oman</option>
+                        </select>
+
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div id="referralError" class="alert" role="alert"></div>
+                    <label for="referral" class="sr-only">Option</label>
+                    <div class="input-group">
+                        <div class="input-group-addon"><span class="glyphicon glyphicon-tasks"></span></div>
+                        <input type="text" class="form-control" id="referral" name="referral" placeholder="Options">
+                    </div>
+                </div>
+                <button type="submit" class="btn btn-primary">Submit</button>
+            </form>
+        </div>
+    </div>
+</div>
+</body>
+<script>
+    document.getElementById("contact-form").onsubmit = function() {
+    var nameValidate = /[a-z]/;
+    //Validate Name
+    if(document.getElementById("form-name-field").value == "") {
+        document.getElementById("nameError").innerHTML = "Please Enter A Name";
+        document.getElementById("nameError").className = "alert-danger";
+    }
+}
+</script>
+</html>

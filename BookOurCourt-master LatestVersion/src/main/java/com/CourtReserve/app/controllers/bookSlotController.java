@@ -43,6 +43,7 @@ public class bookSlotController {
         if (date.equals("")){
             date = LocalDate.now().format(dtf);
         }
+
         LocalDate dateModified = LocalDate.of(Integer.parseInt(date.split("-")[0]),Integer.parseInt(date.split("-")[1]),Integer.parseInt(date.split("-")[2]) );
         SpecialDates specialDate = specialDatesRepository.findByDate(date);
         String dayType = "REGL";
@@ -112,7 +113,9 @@ public class bookSlotController {
             slotMap.putIfAbsent("statusColor",statusColor);
             slotListed.add(slotMap);
         }
+
         System.out.println(slots);
+        System.out.println("date:"+date);
         model.addAttribute("slots", slotListed);
         model.addAttribute("date", date);
         model.addAttribute("courts", courtRepository.findAll());

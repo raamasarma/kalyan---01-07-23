@@ -33,5 +33,6 @@ $('#submitOtp').click(function() {
                   // Handle the error
                   console.log(error);
                 }
-              });});
+              });
+           });
               })
