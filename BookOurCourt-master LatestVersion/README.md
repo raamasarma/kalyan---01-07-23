@@ -1,3 +1,0 @@
-# CourtReserve+
-
-Reserve Your Court
