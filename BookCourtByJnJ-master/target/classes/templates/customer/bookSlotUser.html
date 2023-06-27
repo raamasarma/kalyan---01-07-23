@@ -9,10 +9,9 @@
 
     <div class="container">
         <form class="form-control" method="get" action="#">
-            <div class="form-group">
-            <label for="bookingDate">Select Date</label>
-            <input class="form-control" type="date" id="bookingDate" name="date" min ="2023-06-26" max="2023-07-25">
-            </div>
+
+            <label for="date">Select a date:</label>
+            <input type="date" id="date" name ="date">
             <button type="submit" class="btn btn-primary">Get Slots</button>
         </form>
 
@@ -100,5 +99,23 @@
 
 <!--main content end-->
 </body>
+<script>
+    // Get today's date
+    var today = new Date();
+   // alert(today);
 
+    // Calculate the maximum date (current date + 1 month)
+    var maxDate = new Date(today.getFullYear(), today.getMonth() + 1, today.getDate());
+
+ var minDate = new Date(today);
+   alert(minDate);
+    // Format the maximum date to yyyy-mm-dd
+    var formattedMaxDate = maxDate.toISOString().split('T')[0];
+
+        var min = minDate.toISOString().split('T')[0];
+
+    // Set the maximum attribute of the input field
+    document.getElementById('date').setAttribute('max', formattedMaxDate);
+      document.getElementById('date').setAttribute('min', min);
+  </script>
 </html>
