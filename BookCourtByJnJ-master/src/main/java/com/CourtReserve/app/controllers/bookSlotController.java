@@ -5,6 +5,7 @@ import com.CourtReserve.app.models.Court;
 import com.CourtReserve.app.models.Slot;
 import com.CourtReserve.app.models.SpecialDates;
 import com.CourtReserve.app.repositories.*;
+import org.apache.commons.lang3.time.DateUtils;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -118,8 +119,13 @@ public class bookSlotController {
             slotListed.add(slotMap);
         }
         System.out.println(slots);
+        var max = LocalDate.now().plusDays( 30 );
+        System.out.println("max:"+max);
+
         model.addAttribute("slots", slotListed);
         model.addAttribute("date", date);
+        model.addAttribute("min",date);
+        model.addAttribute("max",max);
         model.addAttribute("courts", courtRepository.findAll());
         return "customer/bookSlotUser";
     }
