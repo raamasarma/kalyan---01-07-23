@@ -38,7 +38,7 @@ public class bookSlotRestController {
 
     @PostMapping("/requestSlot")
     public ResponseEntity requestSlotPost(@RequestParam Map map){
-        System.out.println(map);
+        System.out.println("MAp:"+map);
         Map response = new HashMap();
         String date = map.get("date").toString();
         LocalDate dateModified = LocalDate.of(Integer.parseInt(date.split("-")[0]),Integer.parseInt(date.split("-")[1]),Integer.parseInt(date.split("-")[2]) );

@@ -5,17 +5,16 @@
 
 <body>
 
-123456789123123
-<input type="date" id="date1">
+
 
 <!--main content start-->
 <div layout:fragment="content">
-    123456789
-    <input type="date" id="date2" value ="2023-06-27" th:min ="${min}" th:max="${max}">
+
+
     <div class="container">
         <form class="form-control" method="get" action="#">
 
-
+            <input type="date" id="date2" th:value="${date}" >
             <button type="submit" class="btn btn-primary">Get Slots</button>
         </form>
 
@@ -95,27 +94,5 @@
 
 <!--main content end-->
 </body>
-<script>
-$('document').ready(function (){
-  var today = new Date();
-   // alert(today);
 
-    // Calculate the maximum date (current date + 1 month)
-    var maxDate = new Date(today.getFullYear(), today.getMonth() + 1, today.getDate());
-
- var minDate = new Date(today);
-   //alert(minDate);
-    // Format the maximum date to yyyy-mm-dd
-    var formattedMaxDate = maxDate.toISOString().split('T')[0];
-
-        var min = minDate.toISOString().split('T')[0];
-    alert(min);
-    // Set the maximum attribute of the input field
-    document.getElementById('date1').setAttribute('max', formattedMaxDate);
-      document.getElementById('date1').setAttribute('min', min);
-
-         document.getElementById('date2').setAttribute('max', formattedMaxDate);
-      document.getElementById('date2').setAttribute('min', min);
-});
-  </script>
 </html>
