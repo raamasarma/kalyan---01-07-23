@@ -14,7 +14,7 @@
     <div class="container">
         <form class="form-control" method="get" action="#">
 
-            <input type="date" id="date2" th:value="${date}" >
+            <input type="date" id="bookingDate" name ="date" th:value="${date}" th:min ="${min}" th:max="${max}">
             <button type="submit" class="btn btn-primary">Get Slots</button>
         </form>
 

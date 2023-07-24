@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="layout" xmlns:th="http://www.w3.org/1999/xhtml">
+
+<body>
+<!--main content start-->
+<div layout:fragment="content">
+  <div class="container">
+    <h2>Mobile Verification</h2>
+      <div class="form-group">
+        <label for="mobileNo">Mobile Number:</label>
+        <input type="text" class="form-control" id="mobileNo"  name="mobileNo" required>
+        <br>
+        <button id="getOtp" class="btn btn-primary">Get OTP</button>
+        <br>
+        <label for="mobileNo">OTP:</label>
+        <input type="number" class="form-control" id="otp" name="otp" required maxlength="6">
+        <br>
+        <button id="submitOtp" class="btn btn-primary"> Submit to Register >></button>
+      </div>
+  </div>
+  <script th:src="@{js/appentry.js}" ></script>
+</div>
+<!--main content end-->
+
+</body>
+
+</html>

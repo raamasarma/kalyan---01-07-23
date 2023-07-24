@@ -41,7 +41,9 @@ public class bookSlotRestController {
         System.out.println("MAp:"+map);
         Map response = new HashMap();
         String date = map.get("date").toString();
-        LocalDate dateModified = LocalDate.of(Integer.parseInt(date.split("-")[0]),Integer.parseInt(date.split("-")[1]),Integer.parseInt(date.split("-")[2]) );
+
+       // LocalDate date = LocalDate.parse(map.get("date").toString(), DateTimeFormatter.ofPattern("dd-MM-yyyy"));
+        LocalDate dateModified = LocalDate.of(Integer.parseInt((date.split("-")[0])),Integer.parseInt(date.split("-")[1]),Integer.parseInt(date.split("-")[2]) );
 
         Slot slot = slotRepository.findBySlotCode(map.get("slotCode").toString());
         System.out.println(slot);
