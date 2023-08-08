@@ -8,11 +8,12 @@
 <div layout:fragment="content">
     <div class="container">
         <div class="row">
-            <div class="col"><h5><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" style="color: green;background-color: green;" class="bi bi-dash-square-fill" viewBox="0 0 16 16">
+            <div class="col"><h6><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" style="color: green;background-color: green;" class="bi bi-dash-square-fill" viewBox="0 0 16 16">
                 <path d="M2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H2zm2.5 7.5h7a.5.5 0 0 1 0 1h-7a.5.5 0 0 1 0-1z"/></svg>
-                Accepted</h5>
+                Accepted</h6>
             </svg>
-                    <div class="row" th:each="request : ${requests}" style="width: 400px" th:if="${request['cardColor']=='success'}">
+                    <div class="row-5" th:each="request : ${requests}" style="width: 300px" th:if="${request['cardColor']=='success'}">
+                        <br>
                         <button type="button" th:class="${'card text-white btn bg-'+request['cardColor']} " th:data-bs-toggle="modal"  th:data-bs-target="${'#modal'+request.id}">
                             <div class="card-body">
                                 <h5 th:text="${request['court'].name +' court on ' + request['gameDateMod']+ ' from ' + request['slot'].startHour + ' to ' +  request['slot'].endHour }" ></h5>
@@ -38,10 +39,11 @@
                     <br>
                 </div>
 
-            <div class="col"><h5><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" style="color: grey;background-color: grey;" class="bi bi-dash-square-fill" viewBox="0 0 16 16">
+            <div class="col"><h6><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" style="color: grey;background-color: grey;" class="bi bi-dash-square-fill" viewBox="0 0 16 16">
                 <path d="M2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H2zm2.5 7.5h7a.5.5 0 0 1 0 1h-7a.5.5 0 0 1 0-1z"/></svg>
-                pending</h5>
-            </svg><div class="row" th:each="request : ${requests}" style="width: 400px" th:if="${request['cardColor']=='secondary'}">
+                pending</h6>
+            </svg><div class="row-5" th:each="request : ${requests}" style="width: 300px" th:if="${request['cardColor']=='secondary'}">
+                    <br>
                     <button type="button" th:class="${'card text-white btn bg-'+request['cardColor']} " th:data-bs-toggle="modal"  th:data-bs-target="${'#modal'+request.id}">
                         <div class="card-body">
                             <h5 th:text="${request['court'].name +' court on ' + request['gameDateMod']+ ' from ' + request['slot'].startHour + ' to ' +  request['slot'].endHour }" ></h5>
@@ -65,10 +67,11 @@
                     </div>
                 </div>
             </div>
-            <div class="col"><h5><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" style="color: red;background-color: red;" class="bi bi-dash-square-fill" viewBox="0 0 16 16">
+            <div class="col"><h6><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" style="color: red;background-color: red;" class="bi bi-dash-square-fill" viewBox="0 0 16 16">
                 <path d="M2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H2zm2.5 7.5h7a.5.5 0 0 1 0 1h-7a.5.5 0 0 1 0-1z"/></svg>
-                Rejected</h5>
-            </svg><div class="row" th:each="request : ${requests}" style="width: 400px" th:if="${request['cardColor']=='danger'}">
+                Rejected</h6>
+            </svg><div class="row-5" th:each="request : ${requests}" style="width: 300px" th:if="${request['cardColor']=='danger'}">
+                    <br>
                     <button type="button" th:class="${'card text-white btn bg-'+request['cardColor']} " th:data-bs-toggle="modal"  th:data-bs-target="${'#modal'+request.id}">
                         <div class="card-body">
                             <h5 th:text="${request['court'].name +' court on ' + request['gameDateMod']+ ' from ' + request['slot'].startHour + ' to ' +  request['slot'].endHour }" ></h5>

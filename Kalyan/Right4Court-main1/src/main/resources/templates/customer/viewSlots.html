@@ -51,6 +51,9 @@
   padding:2px;
   background-colour:#fff;
   }
+  body {
+    margin: 0;   /* Remove body margins */
+}
   </style>
   <div class="container">
     <div th:replace="fragments/message :: message_html"></div>
@@ -59,16 +62,16 @@
 <body style="background-color:Blonde;">
 <div class="container">
   <h4 class = "text-middle"> <font color="#000080 ">
-    <b>View Slot Booking</b> </font></h4>
+    <b>Reports Booking</b> </font></h4>
   <hr color="blue">
-  <form th:action="@{/slotViewData}" th:object="${slot}" method="POST">
+
     <div class="row auto-align">
       <div class="col">
         <label for="username">Username</label>
         <select id="username" class="form-control" name="username">
           <option> --- Select User Name ---</option>
           <option th:each="i : ${user}" th:value="${i.userName}"><span th:text="${i.userName}"></span>-<span
-                  th:text="${i.mobileNo}"></span> </option>
+                  th:text="${i.mobileNo}"></span></option>
         </select>
       </div>
       <div class="col">
@@ -83,8 +86,9 @@
     </div>
 
 
+
 <hr>
-<div id="hide">
+
     <div class="container">
         <table class="table" style="width:100%" id="purchaseTable" border=0>
             <thead>
@@ -101,29 +105,17 @@
             </tr>
             </thead>
             <tbody>
-            <tr th:each="lists : ${list}">
-                <td scope="col"><span th:text="${lists.gameDate}"></span></td>
-                <td scope="col"><span th:text="${lists.slotCode}"></span></td>
-                <td scope="col"><span th:text="${lists.gameMode}"></span></td>
-                <td scope="col"><span th:text="${lists.confirmStatus}"></span></td>
-                <td scope="col"><span th:text="${lists.bookedBy}"></span></td>
-                <td scope="col"><span th:text="${lists.bookTime}"></span></td>
-                <td scope="col"><span th:text="${lists.approvedBy}"></span></td>
-                <td scope="col"><span th:text="${lists.remarksByUser}"></span></td>
-                <td scope="col"><span th:text="${lists.remarksByAdmin}"></span></td>
-            </tr>
-            <tbody>
+
+            </tbody>
         </table>
     </div>
+
 </div>
-  </form>
-</div>
+
 </body>
 <script>
-$(document).ready(function() {
-
-});
  $('#submit').click(function() {
+
 var selectedValue = $("#username option:selected").html();
 var fields = selectedValue.split('-');
 var username = fields[0];
@@ -136,7 +128,7 @@ var active=$("#active").val();
 //alert(active);
 
 $.ajax({
-'async': false,
+async:'false',
  type: 'POST',
  url: '/slotViewData',
       data: {
@@ -145,6 +137,15 @@ $.ajax({
      "gameDate":fromDate
       },
        success: function(data) {
+
+ const jsonObject = JSON.parse(data);
+alert(jsonObject);
+    var tr = '';
+    $.each(jsonObject, function(i, item) {
+      tr += '<tr><td>' + item.gameDate + '</td><td>' + item.slotCode + '</td><td>' + item.gameMode + '</td><td>' + item.confirmStatus + '</td><td>' + item.bookedBy + '</td><td>' + item.bookTime + '</td><td>' + item.approvedBy + '</td><td>' + item.remarksByUser + '</td><td>' + item.remarksByAdmin + '</td></tr>';
+    });
+    alert(tr);
+$('#purchaseTable').append(tr);
 
 }
 });

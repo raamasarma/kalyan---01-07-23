@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -19,7 +20,7 @@ import java.util.Map;
 @NoArgsConstructor
 @AllArgsConstructor
 @Data
-public class BookSlot {
+public class BookSlot implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
@@ -66,4 +67,10 @@ public class BookSlot {
         map.put("refNo", this.refNo);
         return map;
     }
+    public String[] getListValues(String supplierName){
+       // {"gameDate","slotCode","gameMode","confirmStatus","bookedBy","bookTime","approvedBy","RemarksByUser","RemarksByAdmin"}
+        String values[] = {this.gameDate.toString(), this.slotCode,this.gameMode,this.confirmStatus, this.bookedBy, this.bookedBy, String.valueOf(this.bookTime),this.approvedBy,this.remarksByUser, this.remarksByAdmin};
+        return values;
+    }
+
 }

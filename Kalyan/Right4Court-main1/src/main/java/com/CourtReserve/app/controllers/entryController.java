@@ -90,9 +90,9 @@ public class entryController {
         UserLog userLog=new UserLog();
         System.out.println(session.getId());
          User user=new User();
-      //  UserLog usercheck= userLogRepository.findBySessionIdAndStatus(session.getId(),"active");
-        //System.out.println("user Checking:"+usercheck);
-        //userLogRepository.delete(usercheck);
+        UserLog usercheck= userLogRepository.findBySessionIdAndStatus(session.getId(),"active");
+        System.out.println("user Checking:"+usercheck);
+        userLogRepository.delete(usercheck);
         session.setAttribute("loggedIn", "false");
         session.setAttribute("loggedMobile", null);
         session.setAttribute("userType", null);
@@ -105,22 +105,6 @@ public class entryController {
         System.out.println("password");
         return "entryTemplates/password";
     }
-    @PostMapping("/public/password")
-    public String changePassword( HttpServletRequest request, Model model,@RequestParam String mobileNo,  @RequestParam String oldPassword, @RequestParam String newPassword) {
-        System.out.println(mobileNo);
-        System.out.println(oldPassword);
-        System.out.println(newPassword);
-//        System.out.println(con_password);
-        User user = userRepository.findByMobileNoAndPassword(mobileNo, oldPassword);
-
-        if(user!=null)
-        {
-            user.setPassword(newPassword);
-            userRepository.save(user);
-        }
-        return "entryTemplates/login";
-    }
-
     @PostMapping("/public/register")
     public String registerUser(@ModelAttribute User user, HttpSession session) {
         // Process the user registration
@@ -142,6 +126,15 @@ public class entryController {
 
         // Redirect to a success page or perform other actions
         return "redirect:/"; // Name of the success page or URL
+    }
+    @PostMapping("/public/password")
+    public String changePassword( HttpServletRequest request, Model model,@RequestParam Map<String, String> body) {
+        System.out.println(body);
+        User user = userRepository.findByMobileNo(body.get("mobileNo"));
+        System.out.println(user);
+        user.setPassword(body.get("newPassword"));
+        System.out.println(user);
+        return "redirect:entryTemplates/login";
     }
 
 }

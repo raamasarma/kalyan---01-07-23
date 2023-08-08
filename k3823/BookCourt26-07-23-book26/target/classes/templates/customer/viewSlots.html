@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="layout" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz" crossorigin="anonymous"></script>
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <script th:src="@{js/bookslot.js}"></script>
+  <script th:src="@{js/master.js}"></script>
+  <title></title>
+
+
+  <style>
+    #username{
+  width:200px;
+  border:1px solid blue;
+  border-radius:2px
+  outline:0;
+  padding:2px;
+  background-colour:#fff;
+  }
+  input#fromDate{
+  width:200px;
+  border:1px solid blue;
+  border-radius:2px
+  outline:0;
+  padding:2px;
+  background-colour:#fff;
+  text-align: center;
+  }
+  input#toDate{
+  width:200px;
+  border:1px solid blue;
+  border-radius:2px
+  outline:0;
+  padding:2px;
+  background-colour:#fff;
+  text-align: center;
+  }
+  #active{
+  width:200px;
+  border:1px solid blue;
+  border-radius:2px
+  outline:0;
+  padding:2px;
+  background-colour:#fff;
+  }
+  </style>
+  <div class="container">
+    <div th:replace="fragments/message :: message_html"></div>
+  </div>
+</head>
+<body style="background-color:Blonde;">
+<div layout:fragment="content" >
+<div class="container">
+  <h4 class = "text-middle"> <font color="#000080 ">
+    <b>View Slot Booking</b> </font></h4>
+  <hr color="blue">
+  <form  th:object="${slot}">
+    <div class="row auto-align">
+      <div class="col">
+        <label for="username">Username</label>
+        <select id="username" class="form-control" name="username">
+          <option> --- Select User Name ---</option>
+          <option th:each="i : ${user}" th:value="${i.userName}"><span th:text="${i.userName}"></span>-<span
+                  th:text="${i.mobileNo}"></span> </option>
+        </select>
+      </div>
+      <div class="col">
+        <label for="fromDate">From Date</label>
+        <input id="fromDate" name="gameDate" class="form-control" type="date" th:min="${dateTime}" placeholder="dd/mm/yyyy">
+      </div>
+
+    </div>
+    <br>
+    <div class="box-footer">
+      <button type="submit" id="submit" class="btn btn-primary" >Submit</button>
+
+      <button type="submit" id="pdfDownload" class="btn btn-secondary"> Pdf Download</button>
+    </div>
+
+
+    <hr>
+    <!--    <div id="hide">-->
+    <div class="container">
+      <table class="table" style="width:100%" id="purchaseTable" border=0>
+
+        <tbody>
+        <tr th:each="lists : ${list}">
+          <td scope="col"><span th:text="${lists.gameDate}"></span></td>
+          <td scope="col"><span th:text="${lists.slotCode}"></span></td>
+          <td scope="col"><span th:text="${lists.gameMode}"></span></td>
+          <td scope="col"><span th:text="${lists.confirmStatus}"></span></td>
+          <td scope="col"><span th:text="${lists.bookedBy}"></span></td>
+          <td scope="col"><span th:text="${lists.bookTime}"></span></td>
+          <td scope="col"><span th:text="${lists.approvedBy}"></span></td>
+          <td scope="col"><span th:text="${lists.remarksByUser}"></span></td>
+          <td scope="col"><span th:text="${lists.remarksByAdmin}"></span></td>
+        </tr>
+        <tbody>
+      </table>
+      <!--      </div>-->
+    </div>
+  </form>
+</div>
+</div>
+</body>
+<script>
+$(document).ready(function() {
+
+
+$('#submit').click(function() {
+var selectedValue = $("#username option:selected").html();
+var fields = selectedValue.split('-');
+var username = fields[0];
+var mobileNo = fields[1];
+var fromDate = $("#fromDate").val();
+var active=$("#active").val();
+//alert(active);
+
+$.ajax({
+'async': false,
+ type: 'GET',
+ url: '/views/slots',
+      data: {
+     "username":username,
+     "bookedBy":mobileNo,
+     "gameDate":fromDate
+      },
+       success: function(data) {
+       console.log(data);
+      alert(data);
+         const dataTable = $('#purchaseTable');
+                dataTable.empty(); // Clear the existing data
+          dataTable.append(' <thead>');
+          dataTable.append(' <tr>');
+          dataTable.append('   <th scope="col">Game Date</th>');
+          dataTable.append('   <th scope="col">Slot</th>');
+          dataTable.append('   <th scope="col">GameMode</th>');
+          dataTable.append('   <th scope="col">Booking Status</th>');
+          dataTable.append('   <th scope="col">Booked By </th>');
+          dataTable.append('   <th scope="col">Booking Time</th>');
+          dataTable.append('   <th scope="col">Approved by</th>');
+          dataTable.append('   <th scope="col">User Remarks</th>');
+          dataTable.append('   <th scope="col">Admin Remarks</th>');
+         dataTable.append('  </tr>');
+         dataTable.append('  </thead>');
+                data.forEach(function(slot) {
+               //     console.log(slot.id);
+               const row = $('<tr>');
+          row.append('<td scope="col"><span>'+slot.gameDate+'</span></td>');
+          row.append('<td scope="col"><span>'+slot.slotCode+'</span></td>');
+          row.append('<td scope="col"><span>'+slot.gameMode+'</span></td>');
+          row.append('<td scope="col"><span>'+slot.confirmStatus+'</span></td>');
+          row.append('<td scope="col"><span>'+slot.bookedBy+'</span></td>');
+          row.append('<td scope="col"><span>'+slot.bookTime+'</span></td>');
+          row.append('<td scope="col"><span>'+slot.approvedBy+'</span></td>');
+          row.append('<td scope="col"><span>'+slot.remarksByUser+'</span></td>');
+          row.append('<td scope="col"><span>'+slot.remarksByAdmin+'</span></td>');
+
+          row.append('</tr>');
+           dataTable.append(row);
+                            // Access other properties as needed
+                });
+
+
+
+
+}
+});
+});
+});
+$(document).ready(function() {
+
+
+$('#pdfDownload').click(function() {
+var selectedValue = $("#username option:selected").html();
+var fields = selectedValue.split('-');
+var username = fields[0];
+var mobileNo = fields[1];
+var fromDate = $("#fromDate").val();
+var active=$("#active").val();
+console.log(mobileNo);
+console.log(fromDate);
+window.location.href="/views/getSlotsPdf?bookedBy="+ mobileNo +"&fromDate="+fromDate;
+});
+});
+
+</script>
+</html>

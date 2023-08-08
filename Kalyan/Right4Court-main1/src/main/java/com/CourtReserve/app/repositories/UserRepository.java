@@ -14,5 +14,6 @@ public interface UserRepository<user> extends CrudRepository<User, Long> {
 
     User findByMobileNo(String MobileNo);
      List<User> findByOrderByIdDesc();
+    User findByUserName(String userName);
 
 }

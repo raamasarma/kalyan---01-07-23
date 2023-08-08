@@ -24,11 +24,18 @@ public class entryRestController {
         String mobileNubmer = body.get("mobileNo");
         if (mobileNubmer == "") {
             Map response = new HashMap();
-            response.putIfAbsent("msg", "pls enter MobileNo");
+            response.putIfAbsent("msg", "Pls Enter  Valid MobileNo");
             System.out.println("pls enter MobileNo");
 
             return ResponseEntity.ok(response);
-        } else {
+        }
+        else if(mobileNubmer.length()!=10){
+            Map response = new HashMap();
+            response.putIfAbsent("msg", "Pls Enter 10 Digit MobileNo");
+            System.out.println("pls enter  1o digit  MobileNo");
+            return ResponseEntity.ok(response);
+        }
+        else {
 
             int otp = ThreadLocalRandom.current().nextInt(100000, 1000000);
             System.out.println("otp:"+otp);
